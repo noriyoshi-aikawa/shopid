@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>15日間無料体験をはじめる | makeshop byGMO</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+    background: #f0f4f8;
+    min-height: 100vh;
+    padding: 32px 16px 64px;
+    color: #333;
+  }
+
+  .container {
+    max-width: 520px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 12px;
+    padding: 32px 40px 40px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+
+  /* Logo */
+  .logo {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+  .logo img {
+    height: 36px;
+  }
+  .logo-text {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1a3a6b;
+    letter-spacing: -0.5px;
+  }
+  .logo-sub {
+    font-size: 11px;
+    color: #888;
+    margin-left: 4px;
+  }
+
+  /* Steps */
+  .steps {
+    display: flex;
+    margin-bottom: 28px;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid #dde3ec;
+  }
+  .step {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: #888;
+    background: #f5f7fa;
+  }
+  .step.active {
+    background: #1a3a6b;
+    color: #fff;
+  }
+  .step-arrow {
+    width: 0;
+    height: 0;
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+    border-left: 16px solid #1a3a6b;
+    align-self: center;
+    flex-shrink: 0;
+  }
+
+  h1 {
+    font-size: 22px;
+    color: #1a88d4;
+    font-weight: 700;
+    margin-bottom: 8px;
+    text-align: center;
+  }
+  .subtitle {
+    font-size: 12px;
+    color: #666;
+    text-align: center;
+    margin-bottom: 24px;
+    line-height: 1.6;
+  }
+
+  /* Radio group */
+  .usage-label {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .radio-group {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 20px;
+    align-items: center;
+  }
+  .radio-group label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  input[type="radio"] {
+    accent-color: #1a88d4;
+    width: 16px;
+    height: 16px;
+  }
+
+  /* Form fields */
+  .field {
+    margin-bottom: 16px;
+  }
+  .field-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .badge-optional {
+    font-size: 11px;
+    font-weight: 600;
+    color: #888;
+    background: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    padding: 1px 6px;
+  }
+  .badge-required {
+    font-size: 11px;
+    font-weight: 600;
+    color: #fff;
+    background: #e05555;
+    border-radius: 3px;
+    padding: 1px 6px;
+  }
+  .tooltip-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #aaa;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .tooltip-icon:hover .tooltip-body {
+    display: block;
+  }
+  .tooltip-body {
+    display: none;
+    position: absolute;
+    left: 20px;
+    top: -4px;
+    background: #333;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 400;
+    padding: 6px 10px;
+    border-radius: 4px;
+    white-space: nowrap;
+    z-index: 10;
+    line-height: 1.5;
+    width: 220px;
+    white-space: normal;
+  }
+
+  .field-input-wrap {
+    position: relative;
+  }
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="password"] {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1px solid #ccd3db;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #333;
+    outline: none;
+    transition: border-color 0.2s;
+    background: #fff;
+  }
+  input:focus {
+    border-color: #1a88d4;
+    box-shadow: 0 0 0 3px rgba(26,136,212,0.12);
+  }
+  input::placeholder {
+    color: #bbb;
+  }
+
+  /* Shop ID field special */
+  .shop-id-wrap {
+    position: relative;
+  }
+  .shop-id-wrap input {
+    padding-right: 110px;
+  }
+  .btn-generate {
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #e8f3fb;
+    color: #1a88d4;
+    border: 1px solid #b3d4ef;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 5px 10px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s;
+  }
+  .btn-generate:hover {
+    background: #d0e9f8;
+  }
+  .shop-id-hint {
+    font-size: 11px;
+    color: #888;
+    margin-top: 4px;
+    line-height: 1.5;
+  }
+  .shop-id-hint .generated-note {
+    color: #1a88d4;
+    font-weight: 600;
+  }
+
+  /* Password toggle */
+  .pw-toggle {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #aaa;
+    padding: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Notice */
+  .notice {
+    font-size: 12px;
+    color: #666;
+    margin: 4px 0 20px;
+    line-height: 1.7;
+  }
+
+  /* Checkbox */
+  .checkbox-wrap {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 20px;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    margin-top: 2px;
+    accent-color: #1a88d4;
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+  .link {
+    color: #1a88d4;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  /* Submit button */
+  .btn-submit {
+    width: 100%;
+    padding: 15px;
+    background: #8899bb;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 17px;
+    font-weight: 700;
+    cursor: not-allowed;
+    transition: background 0.2s;
+    letter-spacing: 0.5px;
+  }
+  .btn-submit.active {
+    background: #1a3a6b;
+    cursor: pointer;
+  }
+  .btn-submit.active:hover {
+    background: #152f5a;
+  }
+
+  /* Privacy mark */
+  .privacy {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+  }
+  .privacy-mark {
+    width: 48px;
+    height: 48px;
+    background: #e8edf5;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    color: #555;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.3;
+    flex-shrink: 0;
+  }
+  .privacy-text {
+    font-size: 11px;
+    color: #777;
+    line-height: 1.6;
+  }
+
+  /* Auto-generate banner */
+  .autogen-banner {
+    display: none;
+    background: #e8f5e9;
+    border: 1px solid #a5d6a7;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 12px;
+    color: #2e7d32;
+    margin-top: 6px;
+    line-height: 1.5;
+  }
+  .autogen-banner.visible {
+    display: block;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Logo -->
+  <div class="logo">
+    <span class="logo-text">makeshop</span><span class="logo-sub">byGMO</span>
+  </div>
+
+  <!-- Steps -->
+  <div class="steps">
+    <div class="step active">1. 入力</div>
+    <div class="step-arrow"></div>
+    <div class="step">2. 完了</div>
+  </div>
+
+  <h1>15日間無料体験をはじめる！</h1>
+  <p class="subtitle">ご利用形態は正しくご入力ください。ご利用いただける決済サービスが異なります。</p>
+
+  <form id="signupForm" onsubmit="return false;">
+    <!-- 利用形態 -->
+    <div class="usage-label">ご利用形態</div>
+    <div class="radio-group">
+      <label><input type="radio" name="usage" value="business" checked> 企業で利用</label>
+      <label><input type="radio" name="usage" value="personal"> 個人で利用</label>
+    </div>
+
+    <!-- 会社名 -->
+    <div class="field" id="companyField">
+      <div class="field-label">会社名</div>
+      <input type="text" id="company" placeholder="例）○×株式会社">
+    </div>
+
+    <!-- お名前 -->
+    <div class="field">
+      <div class="field-label">お名前(氏名)</div>
+      <input type="text" id="name" placeholder="例）山田太郎" oninput="validate()">
+    </div>
+
+    <!-- 電話番号 -->
+    <div class="field">
+      <div class="field-label">電話番号</div>
+      <input type="tel" id="phone" placeholder="例）03-1234-5678" oninput="validate()">
+    </div>
+
+    <!-- メール -->
+    <div class="field">
+      <div class="field-label">メールアドレス</div>
+      <input type="email" id="email" placeholder="例）info@example.com" oninput="validate()">
+    </div>
+
+    <!-- ショップID（任意） -->
+    <div class="field">
+      <div class="field-label">
+        ご希望のショップID
+        <span class="badge-optional">任意</span>
+        <span class="tooltip-icon">?
+          <span class="tooltip-body">ショップIDはお店のURLに使われます。未入力の場合は自動で生成されます。開設後は変更できません。</span>
+        </span>
+      </div>
+      <div class="shop-id-wrap">
+        <input type="text" id="shopId" placeholder="半角英数4〜12文字（未入力で自動生成）" maxlength="12"
+          oninput="onShopIdInput()" onfocus="onShopIdFocus()">
+        <button type="button" class="btn-generate" onclick="generateShopId()">自動生成する</button>
+      </div>
+      <div class="shop-id-hint" id="shopIdHint">
+        未入力の場合、自動生成されます（例：AA260417001）
+      </div>
+      <div class="autogen-banner" id="autogenBanner">
+        ✓ ショップIDを自動生成しました：<strong id="generatedIdDisplay"></strong>　<a href="#" class="link" onclick="clearGenerated(); return false;">クリアして自分で入力する</a>
+      </div>
+    </div>
+
+    <!-- パスワード -->
+    <div class="field">
+      <div class="field-label">パスワード</div>
+      <div class="field-input-wrap">
+        <input type="password" id="password" placeholder="半角英数記号14〜64文字" oninput="validate()">
+        <button type="button" class="pw-toggle" onclick="togglePw()">
+          <svg id="pwIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
+            <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
+            <line x1="1" y1="1" x2="23" y2="23"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- 注意事項 -->
+    <p class="notice">
+      ※15日間の無料体験後、自動契約はございません。<br>
+      ※ショップIDを入力した場合、開設後は変更できません。
+    </p>
+
+    <!-- 同意チェック -->
+    <div class="checkbox-wrap">
+      <input type="checkbox" id="agree" onchange="validate()">
+      <label for="agree">下記内容について確認・同意し、申し込みます</label>
+    </div>
+    <p style="font-size:13px; text-align:center; margin-bottom:20px;">
+      <a class="link" href="#">利用規約</a>、<a class="link" href="#">個人情報の取り扱いについて</a>
+    </p>
+
+    <!-- Submit -->
+    <button class="btn-submit" id="submitBtn" disabled>無料体験をはじめる</button>
+  </form>
+
+  <!-- Privacy mark -->
+  <div class="privacy">
+    <div class="privacy-mark">Pマーク<br>21900411</div>
+    <div class="privacy-text">
+      当社はプライバシーマーク認定事業者です。<br>
+      プライバシー制度に基づき、安全かつ適切な個人情報管理を行っています。
+    </div>
+  </div>
+</div>
+
+<script>
+  // --- ショップID自動生成 ---
+  let generatedId = '';
+  let counter = 1; // 本来はサーバー側で管理
+
+  function buildAutoId() {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const r1 = chars[Math.floor(Math.random() * 26)];
+    const r2 = chars[Math.floor(Math.random() * 26)];
+    const now = new Date();
+    const yy = String(now.getFullYear()).slice(2);
+    const mm = String(now.getMonth() + 1).padStart(2, '0');
+    const dd = String(now.getDate()).padStart(2, '0');
+    const seq = String(counter++).padStart(3, '0');
+    return r1 + r2 + yy + mm + dd + seq;
+  }
+
+  function generateShopId() {
+    generatedId = buildAutoId();
+    document.getElementById('shopId').value = generatedId;
+    document.getElementById('shopId').style.color = '#1a88d4';
+    document.getElementById('generatedIdDisplay').textContent = generatedId;
+    document.getElementById('autogenBanner').classList.add('visible');
+    document.getElementById('shopIdHint').style.display = 'none';
+    validate();
+  }
+
+  function clearGenerated() {
+    generatedId = '';
+    document.getElementById('shopId').value = '';
+    document.getElementById('shopId').style.color = '';
+    document.getElementById('autogenBanner').classList.remove('visible');
+    document.getElementById('shopIdHint').style.display = '';
+    validate();
+  }
+
+  function onShopIdInput() {
+    const val = document.getElementById('shopId').value;
+    if (val !== generatedId) {
+      generatedId = '';
+      document.getElementById('autogenBanner').classList.remove('visible');
+      document.getElementById('shopIdHint').style.display = '';
+      document.getElementById('shopId').style.color = '';
+    }
+    validate();
+  }
+
+  function onShopIdFocus() {
+    // フォーカス時は何もしない（未入力でも進める）
+  }
+
+  // --- 会社名フィールド切り替え ---
+  document.querySelectorAll('input[name="usage"]').forEach(r => {
+    r.addEventListener('change', () => {
+      const isBiz = document.querySelector('input[name="usage"]:checked').value === 'business';
+      document.getElementById('companyField').style.display = isBiz ? '' : 'none';
+      validate();
+    });
+  });
+
+  // --- バリデーション ---
+  function validate() {
+    const name = document.getElementById('name').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+    const agree = document.getElementById('agree').checked;
+    const shopId = document.getElementById('shopId').value.trim();
+
+    // ショップIDは任意。入力した場合のみ形式チェック
+    const shopIdOk = shopId === '' || /^[a-zA-Z0-9]{4,12}$/.test(shopId);
+
+    const ok = name && phone && email && password.length >= 14 && agree && shopIdOk;
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = !ok;
+    btn.classList.toggle('active', ok);
+  }
+
+  // --- パスワード表示切替 ---
+  function togglePw() {
+    const pw = document.getElementById('password');
+    const isText = pw.type === 'text';
+    pw.type = isText ? 'password' : 'text';
+  }
+</script>
+</body>
+</html>
